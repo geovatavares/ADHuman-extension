@@ -1,0 +1,14 @@
+{
+  "name": "ADHuman WCAG 1.4.3 Agent",
+  "description": "Timed mitigation for WCAG 1.4.3 (Contrast - Minimum): Stage 0 auto after 5s; Stage 1 manual after user inactivity.",
+  "version": "2.6",
+  "manifest_version": 3,
+  "permissions": [],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["adhuman-core.js", "content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ADHuman Visual</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <div class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div><span>PERFIS DE ACUIDADE VISUAL</span><h1>ADHuman + Ollama</h1></div>
+    <b class="live">V3</b>
+  </header>
+
+  <main>
+    <section class="page-card">
+      <div class="page-head">
+        <div><span class="label">Página atual</span><strong id="pageTitle">Aguardando análise</strong></div>
+        <button id="scanButton" type="button">Analisar</button>
+      </div>
+      <div class="page-url" id="pageUrl">—</div>
+      <div class="metrics">
+        <div><span>Falhas</span><b id="issueCount">—</b></div>
+        <div><span>Menor razão</span><b id="lowestRatio">—</b></div>
+        <div><span>Critério</span><b>1.4.3</b></div>
+      </div>
+    </section>
+
+    <div class="experiment-grid">
+      <label class="mode-field">
+        <span class="label">Entrada do Analyzer</span>
+        <select id="analysisMode">
+          <option value="actual">Análise real da página</option>
+          <option value="0">Simular 0 falhas</option>
+          <option value="1">Simular 1 falha</option>
+          <option value="3">Simular 3 falhas</option>
+          <option value="10">Simular 10 falhas</option>
+        </select>
+      </label>
+      <label class="mode-field">
+        <span class="label">Resultado do Classifier</span>
+        <select id="classifierMode">
+          <option value="auto">Automático demonstrativo</option>
+          <option value="0">Forçar Level 0</option>
+          <option value="1">Forçar Level 1</option>
+          <option value="2">Forçar Level 2</option>
+          <option value="3">Forçar Level 3</option>
+        </select>
+      </label>
+    </div>
+
+    <section class="simulator-card">
+      <div class="simulator-head">
+        <div><span class="label">Participação humana</span><strong>Participante do experimento</strong></div>
+        <b id="ollamaStatus" class="status-chip neutral">Não verificado</b>
+      </div>
+      <label>
+        <span>Modo</span>
+        <select id="participantMode">
+          <option value="llm">Humano simulado por Ollama</option>
+          <option value="manual">Humano real — manual</option>
+        </select>
+      </label>
+      <div class="simulator-grid" id="llmSettings">
+        <label><span>Perfil visual</span><select id="humanProfile">
+          <option value="acuity_reference">Visão de referência</option>
+          <option value="acuity_mild">Redução leve</option>
+          <option value="acuity_moderate">Redução moderada</option>
+          <option value="acuity_severe">Redução severa</option>
+        </select></label>
+        <label><span>Modelo Ollama</span><select id="ollamaModel">
+          <option value="llama3.1:8b">llama3.1:8b</option>
+          <option value="qwen3:8b">qwen3:8b</option>
+        </select></label>
+      </div>
+      <div class="profile-summary" id="profileSummary"></div>
+      <button class="connection-button" id="testOllama" type="button">Testar backend e Ollama</button>
+    </section>
+
+    <section class="state-card" aria-live="polite">
+      <div class="state-code" id="stateCode">AH0</div>
+      <div class="state-copy">
+        <span class="label">Estado atual</span>
+        <strong id="stateTitle">Waiting for Adaptation Request</strong>
+        <small id="stateDescription">Aguardando o início do ciclo.</small>
+      </div>
+      <b class="level" id="levelChip">—</b>
+    </section>
+
+    <section class="classifier">
+      <div class="classifier-head"><div><span class="label">Classifier</span><strong id="classifierText">Aguardando dados</strong></div><b id="cycleStep">—</b></div>
+      <div class="progress"><i id="progressBar"></i></div>
+      <button class="primary" id="cycleButton" type="button" disabled>Executar ciclo ADHuman <span>→</span></button>
+    </section>
+
+    <section class="decision" id="decisionPackage">
+      <div class="decision-head"><div><span class="label">Decision Package</span><strong id="decisionTitle">Decisão humana necessária</strong></div><b id="decisionLevel">L1</b></div>
+      <p id="decisionInstruction"></p>
+      <div class="plan-summary" id="planSummary"></div>
+      <div class="llm-waiting" id="llmWaiting"><i></i><div><strong>Ollama simulando o participante</strong><span>O perfil e o Decision Package permanecem no computador.</span></div></div>
+
+      <div id="manualControls">
+        <div class="level-controls" id="level1Controls">
+          <button class="approve-button" id="approveRecommended" type="button">Aprovar recomendação</button>
+          <button class="reject-button" data-reject type="button">Rejeitar recomendação</button>
+        </div>
+        <div class="level-controls" id="level2Controls">
+          <button data-plan="plan_minimum" type="button"><b>Correção mínima</b><span>Contraste com mínima alteração</span></button>
+          <button data-plan="plan_enhanced" type="button"><b>Legibilidade reforçada</b><span>125%, contraste 7:1</span></button>
+          <button data-plan="plan_low_vision" type="button"><b>Baixa visão</b><span>175%, contraste elevado</span></button>
+          <button class="reject-button" data-reject type="button">Rejeitar todos</button>
+        </div>
+        <div class="level3-controls" id="level3Controls">
+          <label><span>Ampliação do texto <output id="scaleValue">150%</output></span><input id="customScale" type="range" min="1" max="2" step="0.05" value="1.5"></label>
+          <label><span>Altura da linha <output id="lineHeightValue">1,6</output></span><input id="customLineHeight" type="range" min="1.2" max="2" step="0.1" value="1.6"></label>
+          <label><span>Espaço entre letras <output id="letterSpacingValue">0,04 em</output></span><input id="customLetterSpacing" type="range" min="0" max="0.12" step="0.01" value="0.04"></label>
+          <label><span>Contraste-alvo <output id="contrastValue">10:1</output></span><input id="customContrast" type="range" min="4.5" max="21" step="0.5" value="10"></label>
+          <label><span>Tamanho mínimo dos controles <output id="targetSizeValue">36 px</output></span><input id="customTargetSize" type="range" min="24" max="48" step="2" value="36"></label>
+          <label class="check-field"><input id="customHighContrast" type="checkbox" checked><span>Aplicar esquema de alto contraste</span></label>
+          <div class="level-controls"><button class="approve-button" id="applyLevel3" type="button">Aplicar configuração</button><button class="reject-button" data-reject type="button">Rejeitar</button></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="llm-result" id="llmResultCard" aria-live="polite">
+      <div class="llm-result-head"><div><span class="label">Decisão do humano simulado</span><strong id="llmAction">—</strong></div><b id="llmConfidence">—</b></div>
+      <p id="llmRationale"></p>
+      <small id="llmMetadata"></small>
+    </section>
+
+    <section class="fallback" id="fallbackCard">
+      <b>!</b><div><strong>Execução interrompida</strong><p id="fallbackText">A decisão ou adaptação não pôde ser concluída com segurança.</p></div>
+    </section>
+
+    <section class="actions">
+      <button id="highlightButton" type="button">Destacar falhas</button>
+      <button id="restoreButton" type="button">Restaurar página</button>
+    </section>
+
+    <section class="log-card">
+      <div class="log-head"><span class="label">Registro rastreável do ciclo</span><button id="clearLog" type="button">Limpar</button></div>
+      <div id="logList"><p class="empty">Nenhum evento registrado.</p></div>
+    </section>
+  </main>
+
+  <footer>
+    <span>L0 autônomo</span><span>L1 validação</span><span>L2 seleção</span><span>L3 controle humano</span>
+  </footer>
+  <script src="popup.js"></script>
+</body>
+</html>

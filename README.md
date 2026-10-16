@@ -1,176 +1,143 @@
-# ADHuman-extension
+# ADHuman — Web Accessibility Exemplar
 
-ADHuman is a hybrid Human-in-the-loop architecture designed to improve human judgment directly into the decision-making adaptation process, particularly in the Analyse phase of the MAPE-K model.
+**Source snapshot:** 25 September 2026 · **Chrome extension:** v3.3.0
 
-The system implements a **Human-AI collaborative mitigation model**, where automatic accessibility fixes are applied first and manual adjustments are enabled if necessary.
+ADHuman is a human-in-the-loop architecture for self-adaptive systems.
+This repository contains a *web accessibility exemplar*: a Chrome
+extension, a local FastAPI/Ollama backend that simulates responses at
+human decision points, and automation scripts for preliminary
+accessibility experiments.
 
----
+> **Research version warning.** This is the most complete implementation
+> found in the `ADHuman_25.09.2026.rar` archive, but it is **not the
+> final October evaluation artifact**. In particular, the bundled
+> website list and preliminary results do not match the 30 high-traffic
+> sites / 118 valid executions / 37 applied adaptations in the manuscript.
+> See [ARTIFACT_STATUS.md](ARTIFACT_STATUS.md).
 
-# Overview
+## Repository contents
 
-Many websites fail to satisfy the **minimum color contrast requirements** defined in WCAG.
+```text
+ADHuman-Visual-LLM/
+  plugin/                   Chrome Manifest V3 extension
+  backend/                  FastAPI + local Ollama decision simulator
+    app/                    API, profiles, prompt, validation and planning support
+    profiles/profiles.json  Four experimental visual configurations
+    tests/                  Seven unit tests
+  docs/                     Architecture and methodological notes
+  Portal-Cidadao-Demo.html  Offline demonstration page
 
-ADHuman addresses this problem using a **two-stage mitigation process**:
+adhuman_experiment_preliminary/
+  experiment_config.json    30-site × 4-profile September experiment
+  sites.csv                 September site set
+  run_experiment.py         Playwright automation
+  run_aim_experiment.py     WAVE / AIM pre-post measurement
+  analyze_results.py       Participation analysis
+  analyze_aim_results.py   AIM analysis
+  README.md                 Detailed experiment instructions
 
-| Stage   | Mode              | Trigger                       | Behavior                                             |
-| ------- | ----------------- | ----------------------------- | ---------------------------------------------------- |
-| Stage 0 | Automatic         | 5 seconds after page load     | Automatically adjusts text color to improve contrast |
-| Stage 1 | Human-in-the-loop | 10 seconds of user inactivity | Enables manual adjustments on flagged elements       |
-
-The system visually highlights problematic elements and provides a small UI to guide users in applying corrections.
-
----
-
-# Architecture
-
-The agent runs as a **Chrome Extension (Manifest V3)**.
-
-```
-Browser Page
-     │
-     ▼
-Content Script
-     │
-     ▼
-ADHumanWCAG Agent
-     │
-     ├── Contrast Detection
-     ├── Automatic Mitigation (Stage 0)
-     └── Manual Adjustment (Stage 1)
-```
-
----
-
-# Repository Structure
-
-```
-adhuman-wcag-143
-│
-├── extension
-│   ├── manifest.json
-│   ├── adhuman-core.js
-│   └── content.js
-│
-├── docs
-│   └── architecture.md
-│
-└── README.md
+preliminary_data/
+  2026-09-25/               Historical partial results, clearly labeled
 ```
 
-### extension/
+## Architecture and participation levels
 
-Contains the Chrome extension implementation.
+The extension monitors page content, calculates text/background contrast
+issues relative to a configured synthetic visual profile, and maps the
+number of issues to one of four levels:
 
-* `manifest.json` — extension configuration
-* `adhuman-core.js` — main accessibility mitigation agent
-* `content.js` — initialization script
+| Level | Count of detected issues | Interaction |
+| --- | ---: | --- |
+| L0 | 0–1 | Autonomous / no human participation |
+| L1 | 2–3 | Validation of a recommended plan |
+| L2 | 4–7 | Human selection or adjustment |
+| L3 | 8 or more | Decision support |
 
----
+These **prototype-specific** thresholds are not defined by WCAG.
+In this implementation, the **Classifier** chooses the participation
+level. The LLM is used **only to simulate a human response** when a
+level requires participation; it does not determine the level.
 
-# How It Works
+The synthetic visual configurations use contrast targets **4.5:1,
+7:1, 10:1, and 15:1**. The last two values are author-defined
+experimental parameters and none of these configurations should be
+interpreted as clinical classifications of individual users.
 
-### 1. Contrast Detection
+## Requirements
 
-The agent scans the DOM and computes the **contrast ratio** between text and background colors using the WCAG luminance formula.
+- Windows 10/11 or equivalent environment supporting Python, Chrome,
+  Ollama and Playwright; the included launch scripts target Windows.
+- Python 3.10 or newer.
+- Google Chrome / Chromium with support for unpacked extensions.
+- [Ollama](https://ollama.com/) and the locally installed
+  `llama3.1:8b` model.
+- For the separate AIM experiment only, the
+  [WAVE browser extension](https://wave.webaim.org/extension/).
+  WAVE is **not redistributed** here.
 
-Thresholds used:
+## Quick start on Windows
 
-* **Normal text:** contrast ≥ 4.5:1
-* **Large text:** contrast ≥ 3.0:1
+**1. Install and start the model:**
 
-If a violation is detected, the element is flagged visually.
-
----
-
-### 2. Automatic Mitigation (Stage 0)
-
-After **5 seconds**, the system:
-
-1. Detects contrast failures
-2. Selects the best contrast text color (black or white)
-3. Applies automatic mitigation
-
-Users are notified via a small toast notification.
-
----
-
-### 3. Manual Mitigation (Stage 1)
-
-If the user remains inactive for **10 seconds**, the system enables **manual interaction**.
-
-Users can click flagged elements and choose:
-
-* Automatic text correction
-* Black/white contrast pair
-* Revert modification
-
-This enables **human supervision over automated accessibility repair**.
-
----
-
-# Installation
-
-### 1. Clone the repository
-
-```
-git clone https://github.com/YOUR_USERNAME/adhuman-wcag-143
+```powershell
+ollama pull llama3.1:8b
 ```
 
-### 2. Open Chrome Extensions
+**2. Set up the backend:**
 
+```powershell
+cd ADHuman-Visual-LLM\backend
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+Copy-Item .env.example .env
+.\.venv\Scripts\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8000
 ```
-chrome://extensions
+
+The backend expects Ollama at `http://127.0.0.1:11434`. Once the API
+is running, check `http://127.0.0.1:8000/health` and
+`http://127.0.0.1:8000/docs`.
+
+**3. Load the extension:**
+
+1. Open `chrome://extensions` in Google Chrome.
+2. Enable **Developer mode**, then select **Load unpacked**.
+3. Select **`ADHuman-Visual-LLM/plugin/`** (not the repository root).
+4. Open a website and use the extension's toolbar popup.
+
+**4. Optional preliminary experiment:**
+
+```powershell
+cd adhuman_experiment_preliminary
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m playwright install chromium
+.\.venv\Scripts\python.exe run_experiment.py --smoke-test --mode extension --fresh
 ```
 
-### 3. Enable Developer Mode
+See [the experiment README](adhuman_experiment_preliminary/README.md)
+for the full run, analysis, and WAVE/AIM instructions.
 
-Toggle **Developer Mode** in the top right.
+## Tests
 
-### 4. Load the extension
+From `ADHuman-Visual-LLM/backend`:
 
-Click **Load unpacked** and select the `extension` folder.
+```powershell
+.\.venv\Scripts\python.exe -m unittest discover -s tests -v
+```
 
----
+The seven available backend tests pass in the prepared snapshot.
+Static syntax checks passed for all five JavaScript files. These
+checks do not validate an integrated end-to-end run against external
+websites and a running Ollama instance.
 
-# WCAG Target
+## Anonymized submission and scope
 
-This agent mitigates violations of:
+If this source is linked in an anonymized paper submission, verify that
+the repository, release metadata, commit authors, issue history,
+outbound links and associated artifacts do not reveal the authors'
+identities. Hosting the source in an anonymous mirror does not
+automatically anonymize the contents of files.
 
-**WCAG 2.1 Success Criterion 1.4.3**
-
-Contrast (Minimum)
-
-Official specification:
-
-https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html
-
----
-
-# Research Motivation
-
-ADHuman demonstrates a **timed human-AI collaboration model** for accessibility mitigation.
-
-Instead of relying solely on automated fixes, the system:
-
-* first attempts automatic mitigation
-* then invites human intervention
-* preserves reversibility of changes
-
-This approach aims to support **accessible web experiences without disrupting original page design**.
-
----
-
-# Future Work
-
-Possible extensions include:
-
-* additional WCAG criteria mitigation
-* machine-learning-based color adaptation
-* browser-independent implementation
-* user preference learning
-
----
-
-# License
-
-MIT License
+This snapshot is **not** sufficient to reproduce the latest manuscript
+evaluation. The exact October configuration and results must be
+added from the actual evaluation run before making that claim.

@@ -1,0 +1,93 @@
+{
+  "experiment_name": "ADHuman-30Sites-Homepage-4Profiles",
+  "seed": 20260923,
+  "site_ids": [
+    "P01",
+    "P02",
+    "P03",
+    "P04",
+    "P05",
+    "P06",
+    "P07",
+    "P08",
+    "P09",
+    "P10",
+    "P11",
+    "P12",
+    "P13",
+    "P14",
+    "P15",
+    "P16",
+    "P17",
+    "P18",
+    "P19",
+    "P20",
+    "P21",
+    "P22",
+    "P23",
+    "P24",
+    "P25",
+    "P26",
+    "P27",
+    "P28",
+    "P29",
+    "P30"
+  ],
+  "pages_per_site": 1,
+  "repetitions_per_page_profile": 1,
+  "accepted_levels": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "classifier": {
+    "basis": "profile_contrast_issue_count",
+    "level0_max_issues": 1,
+    "level1_max_issues": 3,
+    "level2_max_issues": 7,
+    "note": "O nivel e uma saida do ADHuman. O Classifier conta incompatibilidades de contraste em relacao ao alvo do perfil."
+  },
+  "ollama_model": "llama3.1:8b",
+  "navigation_timeout_ms": 45000,
+  "post_load_wait_ms": 2500,
+  "adaptation_wait_ms": 360000,
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "headless": false,
+  "extension_path": "../ADHuman-Visual-LLM/plugin",
+  "results_file": "results/raw_runs.csv",
+  "browser_user_data_dir": "results/playwright-profile",
+  "profiles": [
+    {
+      "id": "acuity_reference",
+      "label": "Padrao / visao de referencia",
+      "short_label": "Padrao",
+      "acuity_range": "6/12 ou melhor",
+      "target_contrast_ratio": 4.5
+    },
+    {
+      "id": "acuity_mild",
+      "label": "Reducao leve de acuidade",
+      "short_label": "Leve",
+      "acuity_range": "Pior que 6/12 ate 6/18",
+      "target_contrast_ratio": 7.0
+    },
+    {
+      "id": "acuity_moderate",
+      "label": "Reducao moderada de acuidade",
+      "short_label": "Moderado",
+      "acuity_range": "Pior que 6/18 ate 6/60",
+      "target_contrast_ratio": 10.0
+    },
+    {
+      "id": "acuity_severe",
+      "label": "Reducao severa de acuidade",
+      "short_label": "Severo",
+      "acuity_range": "Pior que 6/60 ate 3/60",
+      "target_contrast_ratio": 15.0
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+﻿site_id,site_name,country,profile_id,profile_label,successful_runs,level_0_count,level_1_count,level_2_count,level_3_count,human_assistance_count,human_assistance_pct
+P01,Dados Abertos Brasil,Brazil,acuity_moderate,Moderado,1,0,0,0,1,1,100.0
+P02,Data.gov,United States,acuity_moderate,Moderado,1,0,0,0,1,1,100.0
+P03,Data.gov.uk,United Kingdom,acuity_reference,Padrão,1,1,0,0,0,0,0.0
+P03,Data.gov.uk,United Kingdom,acuity_severe,Severo,1,0,0,0,1,1,100.0
+P04,Dados.gov.pt,Portugal,acuity_moderate,Moderado,1,0,0,0,1,1,100.0
+P06,Data.gov.au,Australia,acuity_mild,Leve,1,0,0,0,1,1,100.0
+P06,Data.gov.au,Australia,acuity_severe,Severo,1,0,0,0,1,1,100.0
+P09,Data.gouv.fr,France,acuity_reference,Padrão,1,1,0,0,0,0,0.0
+P09,Data.gouv.fr,France,acuity_severe,Severo,1,0,0,0,1,1,100.0
+P12,Harvard University,United States,acuity_mild,Leve,1,0,0,0,1,1,100.0
+P13,University of Oxford,United Kingdom,acuity_moderate,Moderado,1,0,0,0,1,1,100.0
+P18,The University of Melbourne,Australia,acuity_reference,Padrão,1,1,0,0,0,0,0.0
+P20,National University of Singapore,Singapore,acuity_moderate,Moderado,1,0,0,0,1,1,100.0
+P22,World Health Organization,International,acuity_moderate,Moderado,1,0,0,0,1,1,100.0
+P23,World Bank,International,acuity_reference,Padrão,1,0,0,1,0,1,100.0
+P25,UNICEF,International,acuity_moderate,Moderado,1,0,0,0,1,1,100.0
+P25,UNICEF,International,acuity_severe,Severo,1,0,0,0,1,1,100.0
+P26,OECD,International,acuity_severe,Severo,1,1,0,0,0,0,0.0
+P27,International Monetary Fund,International,acuity_reference,Padrão,1,1,0,0,0,0,0.0
+P27,International Monetary Fund,International,acuity_mild,Leve,1,0,1,0,0,1,100.0
+P28,World Trade Organization,International,acuity_reference,Padrão,1,0,0,0,1,1,100.0
+P29,International Labour Organization,International,acuity_reference,Padrão,1,0,0,0,1,1,100.0
+P29,International Labour Organization,International,acuity_moderate,Moderado,1,0,0,0,1,1,100.0
+P29,International Labour Organization,International,acuity_severe,Severo,1,0,0,0,1,1,100.0

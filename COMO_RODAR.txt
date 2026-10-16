@@ -1,0 +1,30 @@
+ADHuman — 10 sites x 10 paginas x 4 perfis
+==========================================
+
+1) Inicie Ollama e o backend ADHuman normalmente.
+
+2) Entre na pasta:
+   adhuman_experiment_preliminary
+
+3) Se necessario, instale o ambiente:
+   Set-ExecutionPolicy -Scope Process Bypass
+   .\setup_windows.ps1
+
+4) Descubra/fixe as 10 paginas de cada site:
+   .\.venv\Scripts\python.exe run_experiment.py --discover-only
+
+   Verifique:
+   - pages.csv (deve ter 100 linhas de paginas)
+   - results\crawl_report.csv (10/10 para cada site)
+
+5) Smoke test (8 execucoes):
+   .\.venv\Scripts\python.exe run_experiment.py --smoke-test --mode extension --fresh
+
+6) Experimento completo (400 execucoes):
+   .\.venv\Scripts\python.exe run_experiment.py --mode extension --fresh
+
+7) Analise:
+   .\.venv\Scripts\python.exe analyze_results.py
+
+Para refazer deliberadamente a descoberta de paginas:
+   .\.venv\Scripts\python.exe run_experiment.py --refresh-pages --discover-only

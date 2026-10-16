@@ -1,0 +1,87 @@
+[
+  {
+    "id": "acuity_reference",
+    "name": "Visão de referência",
+    "acuity_category": "Sem deficiência visual de distância",
+    "acuity_range": "6/12 ou melhor",
+    "description": "Perfil sintético de referência que consegue utilizar texto e contraste nos limites mínimos de acessibilidade.",
+    "expected_barriers": [
+      "Contraste abaixo do mínimo WCAG",
+      "Conteúdo que perde funcionalidade ao ser ampliado"
+    ],
+    "preferences": {
+      "preferred_text_scale": 1.0,
+      "preferred_line_height": 1.5,
+      "preferred_letter_spacing_em": 0.0,
+      "target_contrast_ratio": 4.5,
+      "preferred_target_size_px": 24,
+      "prefers_high_contrast": false
+    },
+    "parameterization_note": "Faixa de acuidade baseada na classificação funcional da OMS; preferências de interface definidas como parâmetros experimentais, não como prescrição clínica."
+  },
+  {
+    "id": "acuity_mild",
+    "name": "Redução leve de acuidade",
+    "acuity_category": "Deficiência visual de distância leve",
+    "acuity_range": "Pior que 6/12 até 6/18",
+    "description": "Perfil sintético que se beneficia de ampliação moderada e contraste reforçado, preservando a estrutura original da página.",
+    "expected_barriers": [
+      "Texto pequeno",
+      "Contraste apenas no limite mínimo",
+      "Alvos interativos pequenos"
+    ],
+    "preferences": {
+      "preferred_text_scale": 1.25,
+      "preferred_line_height": 1.5,
+      "preferred_letter_spacing_em": 0.02,
+      "target_contrast_ratio": 7.0,
+      "preferred_target_size_px": 28,
+      "prefers_high_contrast": true
+    },
+    "parameterization_note": "Faixa de acuidade baseada na classificação funcional da OMS; preferências de interface definidas como parâmetros experimentais, não como prescrição clínica."
+  },
+  {
+    "id": "acuity_moderate",
+    "name": "Redução moderada de acuidade",
+    "acuity_category": "Deficiência visual de distância moderada",
+    "acuity_range": "Pior que 6/18 até 6/60",
+    "description": "Perfil sintético que prioriza texto ampliado, contraste elevado, maior espaçamento e alvos interativos maiores.",
+    "expected_barriers": [
+      "Texto pequeno ou denso",
+      "Baixo contraste",
+      "Linhas muito próximas",
+      "Controles pequenos"
+    ],
+    "preferences": {
+      "preferred_text_scale": 1.5,
+      "preferred_line_height": 1.6,
+      "preferred_letter_spacing_em": 0.04,
+      "target_contrast_ratio": 10.0,
+      "preferred_target_size_px": 36,
+      "prefers_high_contrast": true
+    },
+    "parameterization_note": "Faixa de acuidade baseada na classificação funcional da OMS; preferências de interface definidas como parâmetros experimentais, não como prescrição clínica."
+  },
+  {
+    "id": "acuity_severe",
+    "name": "Redução severa de acuidade",
+    "acuity_category": "Deficiência visual de distância severa",
+    "acuity_range": "Pior que 6/60 até 3/60",
+    "description": "Perfil sintético que tende a exigir ampliação próxima de 200%, contraste muito elevado e controles substancialmente maiores.",
+    "expected_barriers": [
+      "Texto não ampliável",
+      "Contraste insuficiente mesmo quando conforme ao nível AA",
+      "Conteúdo denso",
+      "Alvos interativos pequenos ou próximos"
+    ],
+    "preferences": {
+      "preferred_text_scale": 2.0,
+      "preferred_line_height": 1.8,
+      "preferred_letter_spacing_em": 0.08,
+      "target_contrast_ratio": 15.0,
+      "preferred_target_size_px": 44,
+      "prefers_high_contrast": true
+    },
+    "parameterization_note": "Faixa de acuidade baseada na classificação funcional da OMS; preferências de interface definidas como parâmetros experimentais, não como prescrição clínica."
+  }
+]

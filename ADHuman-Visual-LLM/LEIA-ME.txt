@@ -1,0 +1,151 @@
+ADHUMAN VISUAL 3.1 — EXTENSÃO CHROME + OLLAMA
+================================================
+
+Este é um projeto novo e independente do ADHuman 2.0.3. Ele simula participantes
+com quatro perfis sintéticos de acuidade visual funcional. A extensão analisa e
+adapta a página; o Ollama local somente simula a decisão humana.
+
+
+1. PERFIS DISPONÍVEIS
+---------------------
+
+- Visão de referência: 6/12 ou melhor.
+- Redução leve: pior que 6/12 até 6/18.
+- Redução moderada: pior que 6/18 até 6/60.
+- Redução severa: pior que 6/60 até 3/60.
+
+As faixas seguem a classificação funcional da OMS. Ampliação, contraste,
+espaçamento e tamanho de controles são parâmetros experimentais, não prescrições
+clínicas. Consulte docs\MODELO-DE-PERFIS.md.
+
+
+2. PRÉ-REQUISITOS
+-----------------
+
+- Google Chrome.
+- Python 3.10 ou mais recente.
+- Ollama para Windows: https://ollama.com/download/windows
+- Pelo menos um modelo local:
+
+  ollama pull llama3.1:8b
+
+  ou
+
+  ollama pull qwen3:8b
+
+
+3. INSTALAR E INICIAR
+---------------------
+
+1. Execute 1-Instalar-Backend.bat uma vez.
+2. Execute 2-Iniciar-ADHuman-LLM.bat sempre que usar a extensão.
+3. Mantenha aberta a janela do backend.
+4. Abra chrome://extensions.
+5. Ative Modo do desenvolvedor.
+6. Clique em Carregar sem compactação e selecione a pasta plugin.
+7. Em Detalhes, habilite Permitir acesso a URLs de arquivo.
+
+
+4. TESTE RÁPIDO
+---------------
+
+1. Abra Teste-Integracao-1-Erro.html no Chrome.
+2. Abra o popup do ADHuman Visual.
+3. Clique em Analisar e confirme uma falha de contraste.
+4. Em Resultado do Classifier, selecione Level 1, 2 ou 3.
+5. Selecione Humano simulado por Ollama e um perfil visual.
+6. Clique em Testar backend e Ollama.
+7. Clique em Executar ciclo ADHuman.
+8. Confira decisão, justificativa, estado e registro do ciclo.
+
+O teste com um erro serve apenas para integração. Ele não representa o
+experimento principal.
+
+
+5. NÍVEIS DE ENVOLVIMENTO
+-------------------------
+
+- Level 0: adaptação autônoma; o Ollama não é consultado.
+- Level 1: o participante aprova ou rejeita o plano recomendado.
+- Level 2: o participante escolhe entre os planos candidatos.
+- Level 3: o participante escolhe um plano ou configura uma ação dentro das
+  capacidades da extensão.
+
+O modo Automático demonstrativo usa apenas regras simples para percorrer os
+níveis. Para experimentos controlados, force explicitamente o nível desejado.
+
+
+6. PLANOS CANDIDATOS
+--------------------
+
+- Correção mínima: contraste conforme ao mínimo, pequena mudança visual.
+- Legibilidade reforçada: texto 125%, contraste 7:1 e espaçamento moderado.
+- Pacote de baixa visão: texto 175%, contraste elevado, maior espaçamento e
+  controles com 44 px.
+
+Os planos apresentam compensações entre benefício e impacto visual; nenhum
+plano é universalmente melhor para todos os perfis.
+
+Para uma matriz inicial de 24 condições e sugestões de variáveis de resposta,
+consulte docs\PLANO-EXPERIMENTAL.md.
+
+
+7. RASTREABILIDADE
+------------------
+
+Cada execução registra:
+
+- perfil e faixa de acuidade;
+- Decision Package completo;
+- compatibilidade calculada entre perfil e planos;
+- prompt efetivamente enviado;
+- resposta bruta e resposta validada;
+- modelo, versão do prompt, tempo de inferência e run_id.
+
+Arquivo: backend\logs\simulation-runs.jsonl
+
+
+8. LIMITAÇÕES
+-------------
+
+- Os perfis são participantes sintéticos e não substituem pessoas reais.
+- Acuidade visual isolada não representa todas as necessidades de baixa visão.
+- A análise de contraste é uma aproximação da WCAG 1.4.3.
+- Os parâmetros de interface precisam ser validados posteriormente com
+  especialistas e participantes reais.
+- Não há seed nem timeout comportamental. O timeout técnico do Ollama continua
+  apenas como proteção contra travamento.
+
+
+9. SOLUÇÃO DE PROBLEMAS
+-----------------------
+
+Backend indisponível:
+- Execute 2-Iniciar-ADHuman-LLM.bat.
+- Abra http://127.0.0.1:8000/health.
+
+Ollama indisponível:
+- Execute ollama list.
+- Não execute ollama serve se a porta 11434 já estiver ocupada; isso geralmente
+  significa que o Ollama já está em execução.
+- Abra http://127.0.0.1:11434/api/tags para testar.
+
+Modelo não encontrado:
+- Execute ollama pull llama3.1:8b ou ollama pull qwen3:8b.
+
+HTML local não analisado:
+- Habilite Permitir acesso a URLs de arquivo e recarregue a página.
+
+
+10. EXPERIMENTO AUTOMATIZADO DE 30 SITES
+-----------------------------------------
+
+A versão 3.1 inclui uma ponte de experimento em content.js e um background.js.
+O pacote ADHuman_Experimento_30_Sites pode executar Level 1 e Level 2 de forma
+controlada sem abrir o popup. O Analyzer, os planos, o endpoint /simulation/decide,
+o Checker do backend e a aplicação DOM continuam sendo os mesmos componentes da
+aplicação.
+
+Para o experimento principal, os níveis 1 e 2 são fatores controlados. O perfil
+de acuidade visual não escolhe o nível e não representa personalidade ou aversão
+a risco.

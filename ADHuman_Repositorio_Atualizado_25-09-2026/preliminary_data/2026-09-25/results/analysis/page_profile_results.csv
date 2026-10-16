@@ -1,0 +1,25 @@
+﻿site_id,site_name,country,page_id,page_order,page_depth,page_title,page_url,profile_id,profile_short_label,classified_level,human_assistance_numeric,classifier_issue_count,adhuman_decision,adhuman_plan,adhuman_confidence,adhuman_perceived_fit,decision_latency_ms,llm_inference_time_ms
+P29,International Labour Organization,International,P29-HOME,1,0,Homepage,https://www.ilo.org/,acuity_reference,Padrao,3,1,21.0,defer,,0.0,0.8,209469.85,209386.0
+P03,Data.gov.uk,United Kingdom,P03-HOME,1,0,Homepage,https://www.data.gov.uk/,acuity_severe,Severo,3,1,53.0,select,plan_low_vision,0.9,0.9,154632.01,154576.0
+P29,International Labour Organization,International,P29-HOME,1,0,Homepage,https://www.ilo.org/,acuity_severe,Severo,3,1,52.0,select,plan_enhanced,0.9,0.95,185090.4,184908.0
+P12,Harvard University,United States,P12-HOME,1,0,Homepage,https://www.harvard.edu/,acuity_mild,Leve,3,1,18.0,defer,,0.0,0.9,175585.5,175540.0
+P13,University of Oxford,United Kingdom,P13-HOME,1,0,Homepage,https://www.ox.ac.uk/,acuity_moderate,Moderado,3,1,116.0,defer,,0.0,0.8,149579.51,149525.0
+P23,World Bank,International,P23-HOME,1,0,Homepage,https://www.worldbank.org/,acuity_reference,Padrao,2,1,5.0,select,plan_enhanced,0.9,0.8,116171.46,115976.0
+P26,OECD,International,P26-HOME,1,0,Homepage,https://www.oecd.org/,acuity_severe,Severo,0,0,1.0,autonomous,plan_minimum,,,38.16,0.0
+P29,International Labour Organization,International,P29-HOME,1,0,Homepage,https://www.ilo.org/,acuity_moderate,Moderado,3,1,40.0,select,plan_enhanced,0.9,0.8,178688.37,178601.0
+P06,Data.gov.au,Australia,P06-HOME,1,0,Homepage,https://data.gov.au/,acuity_mild,Leve,3,1,12.0,defer,,0.0,0.9,180726.54,180704.0
+P25,UNICEF,International,P25-HOME,1,0,Homepage,https://www.unicef.org/,acuity_severe,Severo,3,1,50.0,defer,,0.0,0.95,173055.79,173015.0
+P20,National University of Singapore,Singapore,P20-HOME,1,0,Homepage,https://nus.edu.sg/,acuity_moderate,Moderado,3,1,45.0,select,plan_enhanced,0.9,0.8,150558.07,150472.0
+P02,Data.gov,United States,P02-HOME,1,0,Homepage,https://data.gov/,acuity_moderate,Moderado,3,1,36.0,defer,,0.0,0.8,149874.0,149848.0
+P04,Dados.gov.pt,Portugal,P04-HOME,1,0,Homepage,https://dados.gov.pt/,acuity_moderate,Moderado,3,1,45.0,defer,,0.0,0.8,299426.6,299390.0
+P25,UNICEF,International,P25-HOME,1,0,Homepage,https://www.unicef.org/,acuity_moderate,Moderado,3,1,50.0,defer,,0.0,0.8,144990.1,144948.0
+P06,Data.gov.au,Australia,P06-HOME,1,0,Homepage,https://data.gov.au/,acuity_severe,Severo,3,1,36.0,defer,,0.0,0.95,179274.68,179058.0
+P27,International Monetary Fund,International,P27-HOME,1,0,Homepage,https://www.imf.org/,acuity_mild,Leve,1,1,3.0,reject,,0.9,0.8,108792.97,108750.0
+P03,Data.gov.uk,United Kingdom,P03-HOME,1,0,Homepage,https://www.data.gov.uk/,acuity_reference,Padrao,0,0,0.0,no_adaptation_needed,,,,9.97,0.0
+P27,International Monetary Fund,International,P27-HOME,1,0,Homepage,https://www.imf.org/,acuity_reference,Padrao,0,0,0.0,no_adaptation_needed,,,,5.48,0.0
+P09,Data.gouv.fr,France,P09-HOME,1,0,Homepage,https://www.data.gouv.fr/,acuity_severe,Severo,3,1,109.0,defer,,0.0,0.95,197059.09,197029.0
+P18,The University of Melbourne,Australia,P18-HOME,1,0,Homepage,https://www.unimelb.edu.au/,acuity_reference,Padrao,0,0,0.0,no_adaptation_needed,,,,6.48,0.0
+P01,Dados Abertos Brasil,Brazil,P01-HOME,1,0,Homepage,https://dados.gov.br/,acuity_moderate,Moderado,3,1,53.0,defer,,0.0,0.8,177649.05,177596.0
+P09,Data.gouv.fr,France,P09-HOME,1,0,Homepage,https://www.data.gouv.fr/,acuity_reference,Padrao,0,0,1.0,autonomous,plan_minimum,,,23.67,0.0
+P28,World Trade Organization,International,P28-HOME,1,0,Homepage,https://www.wto.org/,acuity_reference,Padrao,3,1,55.0,defer,,0.0,0.8,166508.7,166473.0
+P22,World Health Organization,International,P22-HOME,1,0,Homepage,https://www.who.int/,acuity_moderate,Moderado,3,1,9.0,defer,,0.0,0.8,165798.91,165753.0

@@ -1,0 +1,31 @@
+id,group,country,name,url
+P01,open_data,Brazil,Dados Abertos Brasil,https://dados.gov.br/
+P02,open_data,United States,Data.gov,https://data.gov/
+P03,open_data,United Kingdom,Data.gov.uk,https://www.data.gov.uk/
+P04,open_data,Portugal,Dados.gov.pt,https://dados.gov.pt/
+P05,open_data,Spain,Datos.gob.es,https://datos.gob.es/
+P06,open_data,Australia,Data.gov.au,https://data.gov.au/
+P07,open_data,Singapore,Data.gov.sg,https://data.gov.sg/
+P08,open_data,Canada,Open Government Canada,https://open.canada.ca/
+P09,open_data,France,Data.gouv.fr,https://www.data.gouv.fr/
+P10,open_data,Germany,GovData,https://www.govdata.de/
+P11,university_public,Brazil,UFPE,https://www.ufpe.br/
+P12,university_public,United States,Harvard University,https://www.harvard.edu/
+P13,university_public,United Kingdom,University of Oxford,https://www.ox.ac.uk/
+P14,university_public,Japan,The University of Tokyo,https://www.u-tokyo.ac.jp/en/
+P15,university_public,South Africa,University of Cape Town,https://www.uct.ac.za/
+P16,university_public,Chile,Universidad de Chile,https://uchile.cl/
+P17,university_public,Canada,University of Toronto,https://www.utoronto.ca/
+P18,university_public,Australia,The University of Melbourne,https://www.unimelb.edu.au/
+P19,university_public,Switzerland,ETH Zurich,https://ethz.ch/en.html
+P20,university_public,Singapore,National University of Singapore,https://nus.edu.sg/
+P21,international,International,United Nations,https://www.un.org/
+P22,international,International,World Health Organization,https://www.who.int/
+P23,international,International,World Bank,https://www.worldbank.org/
+P24,international,International,UNESCO,https://www.unesco.org/
+P25,international,International,UNICEF,https://www.unicef.org/
+P26,international,International,OECD,https://www.oecd.org/
+P27,international,International,International Monetary Fund,https://www.imf.org/
+P28,international,International,World Trade Organization,https://www.wto.org/
+P29,international,International,International Labour Organization,https://www.ilo.org/
+P30,international,International,UNHCR,https://www.unhcr.org/

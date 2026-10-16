@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Página demonstrativa de um portal municipal de serviços públicos.">
+  <title>Portal Cidadão — Serviços perto de você</title>
+  <style>
+    :root {
+      --navy: #17324d;
+      --navy-deep: #10263a;
+      --blue: #286f9e;
+      --blue-soft: #eaf4f8;
+      --mint: #dcefe9;
+      --cream: #fbfaf6;
+      --paper: #ffffff;
+      --ink: #243748;
+      --muted: #758794;
+      --line: #dfe7eb;
+      --amber: #f3c86a;
+      --shadow: 0 20px 50px rgba(22, 52, 75, .1);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      color: var(--ink);
+      background: var(--cream);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    a { color: inherit; }
+    button, input { font: inherit; }
+    a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid #f1b83f; outline-offset: 3px; }
+    .wrap { width: min(1160px, 90vw); margin-inline: auto; }
+
+    .utility {
+      min-height: 36px;
+      display: flex;
+      align-items: center;
+      color: #a9bcc7;
+      background: var(--navy-deep);
+      font-size: 12px;
+    }
+    .utility .wrap { display: flex; justify-content: space-between; gap: 24px; }
+    .utility a { text-decoration: none; }
+    .utility-links { display: flex; gap: 20px; }
+
+    header {
+      position: relative;
+      z-index: 2;
+      color: white;
+      background: var(--navy);
+      box-shadow: 0 8px 24px rgba(10, 32, 50, .14);
+    }
+    .main-nav { min-height: 84px; display: flex; align-items: center; justify-content: space-between; gap: 30px; }
+    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      color: var(--navy-deep);
+      background: var(--amber);
+      font-weight: 900;
+    }
+    .brand strong { display: block; font-size: 18px; letter-spacing: -.03em; }
+    .brand small { display: block; margin-top: 2px; color: #b4c5cf; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
+    nav { display: flex; align-items: center; gap: 28px; }
+    nav a { color: #c1d0d8; font-size: 13px; font-weight: 700; text-decoration: none; }
+    nav a:hover { color: white; }
+    .account {
+      padding: 11px 16px;
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 10px;
+      color: white;
+      background: rgba(255,255,255,.07);
+      font-weight: 800;
+    }
+
+    .hero {
+      padding: 78px 0 104px;
+      position: relative;
+      overflow: hidden;
+      color: white;
+      background:
+        radial-gradient(circle at 88% 18%, rgba(243,200,106,.27), transparent 19rem),
+        linear-gradient(135deg, #1d668d, #1c4e72 55%, #183b59);
+    }
+    .hero::after {
+      content: "";
+      width: 460px;
+      height: 460px;
+      position: absolute;
+      right: -120px;
+      bottom: -300px;
+      border: 70px solid rgba(255,255,255,.06);
+      border-radius: 50%;
+    }
+    .hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 70px; align-items: center; }
+    .eyebrow { margin: 0 0 16px; color: #8fbcd0; font-size: 12px; font-weight: 850; letter-spacing: .16em; text-transform: uppercase; }
+    h1 { max-width: 660px; margin: 0; font-size: clamp(42px, 5.5vw, 70px); line-height: .98; letter-spacing: -.055em; }
+    .hero-copy { max-width: 630px; margin: 22px 0 30px; color: #a7c4d1; font-size: 17px; line-height: 1.7; }
+    .search {
+      max-width: 650px;
+      padding: 8px;
+      display: flex;
+      gap: 8px;
+      border-radius: 14px;
+      background: white;
+      box-shadow: 0 18px 40px rgba(8, 30, 48, .24);
+    }
+    .search input { min-width: 0; flex: 1; padding: 13px 14px; border: 0; color: #8ea0aa; background: transparent; }
+    .search input::placeholder { color: #aab8bf; opacity: 1; }
+    .search button { padding: 12px 22px; border: 0; border-radius: 10px; color: #5e543d; background: var(--amber); font-weight: 850; cursor: pointer; }
+    .hero-card {
+      max-width: 390px;
+      justify-self: end;
+      padding: 28px;
+      position: relative;
+      z-index: 1;
+      border: 1px solid rgba(255,255,255,.17);
+      border-radius: 24px;
+      background: rgba(255,255,255,.1);
+      backdrop-filter: blur(12px);
+    }
+    .hero-card span { color: #9ec3d3; font-size: 11px; font-weight: 850; letter-spacing: .14em; text-transform: uppercase; }
+    .hero-card strong { display: block; margin: 12px 0 10px; color: #c7dce5; font-size: 25px; letter-spacing: -.035em; }
+    .hero-card p { margin: 0 0 22px; color: #98b9c8; font-size: 14px; line-height: 1.6; }
+    .hero-card a { display: inline-flex; padding: 11px 14px; border-radius: 9px; color: #6a5b39; background: #ebc674; font-size: 12px; font-weight: 850; text-decoration: none; }
+
+    main { position: relative; z-index: 1; }
+    .quick { margin-top: -45px; display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+    .quick a {
+      min-height: 142px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      color: inherit;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+      text-decoration: none;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .quick a:hover { transform: translateY(-4px); box-shadow: 0 26px 58px rgba(22,52,75,.14); }
+    .quick i { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 12px; color: #80a4b4; background: var(--blue-soft); font-style: normal; font-weight: 900; }
+    .quick strong { display: block; margin-top: 18px; color: #738a96; font-size: 15px; }
+    .quick small { display: block; margin-top: 5px; color: #a4b2b9; font-size: 12px; line-height: 1.45; }
+
+    .section { padding: 84px 0; }
+    .section-head { max-width: 700px; margin-bottom: 30px; }
+    .section-head span { color: #7fa8b8; font-size: 11px; font-weight: 850; letter-spacing: .14em; text-transform: uppercase; }
+    h2 { margin: 10px 0 0; color: #445f6d; font-size: clamp(30px,4vw,46px); line-height: 1.06; letter-spacing: -.045em; }
+    .services { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+    .service {
+      min-height: 230px;
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #e3eaed;
+      border-radius: 18px;
+      background: #fff;
+    }
+    .service .number { color: #b1c1c7; font: 700 13px ui-monospace, monospace; }
+    .service h3 { margin: 30px 0 10px; color: #78909b; font-size: 21px; letter-spacing: -.025em; }
+    .service p { margin: 0; color: #9aaab1; font-size: 14px; line-height: 1.65; }
+    .service a { margin-top: auto; padding-top: 22px; color: #6e9aae; font-size: 13px; font-weight: 850; text-decoration: none; }
+
+    .notice { padding: 0 0 84px; }
+    .notice-card { padding: 36px 40px; display: grid; grid-template-columns: 1fr auto; gap: 30px; align-items: center; border-radius: 22px; color: #385a64; background: var(--mint); }
+    .notice-card span { color: #829ea2; font-size: 10px; font-weight: 850; letter-spacing: .13em; text-transform: uppercase; }
+    .notice-card h2 { margin-top: 7px; color: #54747b; font-size: clamp(25px,3vw,37px); }
+    .notice-card p { max-width: 760px; margin: 10px 0 0; color: #82999e; line-height: 1.6; }
+    .notice-card a { padding: 13px 18px; border-radius: 10px; color: white; background: #557c83; font-size: 13px; font-weight: 850; text-decoration: none; }
+
+    footer { padding: 46px 0; color: #8da2ad; background: var(--navy-deep); }
+    .footer-grid { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    footer strong { color: #bfd0d8; }
+    footer p { margin: 6px 0 0; font-size: 12px; }
+    footer nav a { color: #829aa7; font-size: 12px; }
+
+    @media (max-width: 900px) {
+      nav > a:not(.account) { display: none; }
+      .hero-grid { grid-template-columns: 1fr; gap: 38px; }
+      .hero-card { max-width: 100%; justify-self: stretch; }
+      .quick { grid-template-columns: 1fr 1fr; }
+      .services { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 620px) {
+      .utility-links, .brand small { display: none; }
+      .main-nav { min-height: 72px; }
+      .account { padding: 9px 11px; font-size: 12px; }
+      .hero { padding: 58px 0 86px; }
+      .hero-grid { gap: 28px; }
+      .search { flex-direction: column; }
+      .quick, .services { grid-template-columns: 1fr; }
+      .quick { margin-top: -28px; }
+      .section { padding: 62px 0; }
+      .notice-card { padding: 28px; grid-template-columns: 1fr; }
+      .notice-card a { justify-self: start; }
+      .footer-grid { align-items: flex-start; flex-direction: column; }
+      footer nav { align-items: flex-start; flex-direction: column; gap: 10px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="utility">
+    <div class="wrap">
+      <span>Portal oficial de serviços municipais</span>
+      <div class="utility-links"><a href="#servicos">Acessibilidade</a><a href="#contato">Ouvidoria</a><a href="#contato">Atendimento</a></div>
+    </div>
+  </div>
+
+  <header>
+    <div class="wrap main-nav">
+      <a class="brand" href="#inicio" aria-label="Página inicial do Portal Cidadão">
+        <span class="brand-mark" aria-hidden="true">PC</span>
+        <span><strong>Portal Cidadão</strong><small>Serviços perto de você</small></span>
+      </a>
+      <nav aria-label="Navegação principal">
+        <a href="#servicos">Serviços</a>
+        <a href="#avisos">Avisos</a>
+        <a href="#contato">Contato</a>
+        <a class="account" href="#servicos">Entrar com gov.br</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Cidade simples, serviço próximo</p>
+        <h1>Resolva o que precisa sem sair de casa.</h1>
+        <p class="hero-copy">Consulte documentos, solicite atendimentos e acompanhe serviços públicos em um único lugar.</p>
+        <form class="search" role="search" onsubmit="return false">
+          <input type="search" aria-label="Buscar um serviço" placeholder="Busque por documento, saúde ou tributo">
+          <button type="submit">Buscar serviço</button>
+        </form>
+      </div>
+      <aside class="hero-card">
+        <span>Em destaque</span>
+        <strong>Vacinação 2026</strong>
+        <p>Consulte os locais, horários e documentos necessários para atualizar sua caderneta.</p>
+        <a href="#avisos">Ver locais de atendimento</a>
+      </aside>
+    </div>
+  </section>
+
+  <main>
+    <section class="wrap quick" aria-label="Acessos rápidos">
+      <a href="#servicos"><i aria-hidden="true">01</i><span><strong>Emitir documentos</strong><small>Certidões e comprovantes digitais</small></span></a>
+      <a href="#servicos"><i aria-hidden="true">02</i><span><strong>Agendar atendimento</strong><small>Escolha unidade, data e horário</small></span></a>
+      <a href="#servicos"><i aria-hidden="true">03</i><span><strong>Consultar protocolos</strong><small>Acompanhe solicitações abertas</small></span></a>
+      <a href="#servicos"><i aria-hidden="true">04</i><span><strong>Pagar tributos</strong><small>Guias, parcelas e segunda via</small></span></a>
+    </section>
+
+    <section class="section wrap" id="servicos">
+      <div class="section-head">
+        <span>Mais procurados</span>
+        <h2>Serviços para cada momento da sua rotina.</h2>
+      </div>
+      <div class="services">
+        <article class="service"><span class="number">01</span><h3>Saúde</h3><p>Agendamentos, carteira de vacinação e informações da rede municipal.</p><a href="#contato">Acessar serviços →</a></article>
+        <article class="service"><span class="number">02</span><h3>Educação</h3><p>Matrícula, transporte escolar e acompanhamento da vida acadêmica.</p><a href="#contato">Acessar serviços →</a></article>
+        <article class="service"><span class="number">03</span><h3>Mobilidade</h3><p>Cartão de transporte, credenciais e informações sobre o trânsito.</p><a href="#contato">Acessar serviços →</a></article>
+        <article class="service"><span class="number">04</span><h3>Moradia</h3><p>Programas habitacionais, regularização e manutenção urbana.</p><a href="#contato">Acessar serviços →</a></article>
+        <article class="service"><span class="number">05</span><h3>Trabalho</h3><p>Vagas, capacitações profissionais e apoio ao empreendedor local.</p><a href="#contato">Acessar serviços →</a></article>
+        <article class="service"><span class="number">06</span><h3>Meio ambiente</h3><p>Coleta, arborização, licenças e iniciativas de sustentabilidade.</p><a href="#contato">Acessar serviços →</a></article>
+      </div>
+    </section>
+
+    <section class="notice wrap" id="avisos">
+      <div class="notice-card">
+        <div><span>Aviso de serviço</span><h2>Atendimento presencial com horário ampliado.</h2><p>As unidades centrais passam a funcionar até as 19h nas terças e quintas-feiras.</p></div>
+        <a href="#contato">Ver unidades</a>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contato">
+    <div class="wrap footer-grid">
+      <div><strong>Portal Cidadão</strong><p>Página demonstrativa para uso local.</p></div>
+      <nav aria-label="Links de rodapé"><a href="#inicio">Início</a><a href="#servicos">Serviços</a><a href="mailto:atendimento@exemplo.gov.br">atendimento@exemplo.gov.br</a></nav>
+    </div>
+  </footer>
+</body>
+</html>
